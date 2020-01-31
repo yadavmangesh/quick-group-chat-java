@@ -61,7 +61,8 @@ public class GroupChatActivity extends AppCompatActivity {
     }
 
     private void getPreviousMessages() {
-        MessagesRequest messagesRequest = new MessagesRequest.MessagesRequestBuilder().setGUID(groupId).build();
+        MessagesRequest messagesRequest = new MessagesRequest.MessagesRequestBuilder()
+                .setCategory(CometChatConstants.CATEGORY_MESSAGE).setType(CometChatConstants.MESSAGE_TYPE_TEXT).setGUID(groupId).build();
         messagesRequest.fetchPrevious(new CometChat.CallbackListener<List<BaseMessage>>() {
             @Override
             public void onSuccess(List<BaseMessage> baseMessages) {
@@ -103,7 +104,7 @@ public class GroupChatActivity extends AppCompatActivity {
     }
 
     private void sendMessage(String message) {
-        TextMessage textMessage = new TextMessage(groupId, message, CometChatConstants.MESSAGE_TYPE_TEXT, CometChatConstants.RECEIVER_TYPE_GROUP);
+        TextMessage textMessage = new TextMessage(groupId, message, CometChatConstants.RECEIVER_TYPE_GROUP);
 
         CometChat.sendMessage(textMessage, new CometChat.CallbackListener<TextMessage>() {
             @Override

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.cometchat.pro.core.AppSettings;
 import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.exceptions.CometChatException;
 import com.cometchat.pro.models.User;
@@ -59,7 +60,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initCometChat(){
-        CometChat.init(this, Constants.COMET_CHAT_APP_ID, new CometChat.CallbackListener<String>() {
+
+        AppSettings appSettings = new AppSettings.AppSettingsBuilder()
+                .subscribePresenceForAllUsers().setRegion(Constants.COMET_CHAT_REGION).build();
+
+        CometChat.init(this, Constants.COMET_CHAT_APP_ID,appSettings, new CometChat.CallbackListener<String>() {
             @Override
             public void onSuccess(String successMessage) {
                 Log.d(TAG, "Initialization completed successfully");
